@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unos novog filma</title>
+</head>
+<body>
+<div>
+    <h1>Ažuriranje postojećeg filma</h1>
+    <form th:action="@{/film/update}" th:object="${film}" method="post">
+        <table>
+            <tr>
+                <td>Film ID:</td>
+                <td><input type="text" th:field="*{id}" readonly /></td>
+            </tr>
+            <tr>
+                <td>Film name:</td>
+                <td><input type="text" th:field="*{name}"/></td>
+            </tr>
+            <tr>
+                <td>Film director:</td>
+                <td><input type="text" th:field="*{director}"/></td>
+            </tr>
+            <tr>
+                <td>Film genre:</td>
+                <td>
+                    <select th:field="*{genre}">
+                        <option th:each="gen : ${genreList}"
+                                th:value="${gen}"
+                                th:text="${gen}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Film duration:</td>
+                <td><input type="text" th:field="*{duration}"/></td>
+            </tr>
+            <tr>
+                <td>Film rating:</td>
+                <td>
+                    <select th:field="*{rating}">
+                        <option th:each="rat : ${ratingList}"
+                                th:value="${rat}"
+                                th:text="${rat}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Spremi" />
+    </form>
+</div>
+</body>
+</html>

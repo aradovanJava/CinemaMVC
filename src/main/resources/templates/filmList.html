@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista filmova</title>
+</head>
+<body>
+<ul th:each="film : ${films}">
+    <a th:href="@{/film/details/(id=${film.id})}"><li th:text="${film.name}"/></a>
+</ul>
+</body>
+</html>
