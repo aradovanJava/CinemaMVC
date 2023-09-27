@@ -5,6 +5,7 @@ import hr.apisit.cinemamvc.domain.Genre;
 import hr.apisit.cinemamvc.domain.Rating;
 import hr.apisit.cinemamvc.service.FilmService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("film")
 @AllArgsConstructor
+@Slf4j
 public class FilmController {
 
     private FilmService filmService;
@@ -23,14 +25,24 @@ public class FilmController {
     public String getAllFilms(Model model) {
         List<Film> filmList = filmService.findAll();
         model.addAttribute("films", filmList);
-        return "filmList";
+        return "film/filmList";
     }
 
     @GetMapping("/details/")
     public String getFilmById(Model model, @RequestParam Integer id) {
-        Film film = filmService.findById(id);
-        model.addAttribute("film", film);
-        return "filmDetails";
+
+        Optional filmOptional = Optional.empty();
+
+        try {
+            Film film = filmService.findById(id);
+            filmOptional = Optional.of(film);
+            model.addAttribute("film", filmOptional.get());
+        }
+        catch(RuntimeException ex) {
+            log.error("Error while getting the film by ID!", ex);
+        }
+
+        return "film/filmDetails";
     }
 
     @GetMapping("/new")
@@ -38,7 +50,7 @@ public class FilmController {
         model.addAttribute("film", new Film());
         model.addAttribute("genreList", Genre.values());
         model.addAttribute("ratingList", Rating.values());
-        return "newFilm";
+        return "film/newFilm";
     }
 
     @PostMapping("/new")
@@ -53,7 +65,7 @@ public class FilmController {
         model.addAttribute("film", filmToUpdate);
         model.addAttribute("genreList", Genre.values());
         model.addAttribute("ratingList", Rating.values());
-        return "updateFilm";
+        return "film/updateFilm";
     }
 
     @PostMapping("/update")
