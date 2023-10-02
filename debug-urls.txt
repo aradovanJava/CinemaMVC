@@ -1,0 +1,2 @@
+https://copyprogramming.com/howto/thymeleaf-cannot-detect-templates-inside-spring-boot-project?utm_content=cmp-true
+https://www.tabnine.com/code/java/methods/org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver/setTemplateMode
