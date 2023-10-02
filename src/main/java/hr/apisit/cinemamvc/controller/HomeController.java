@@ -12,4 +12,9 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("error")
+    public String getLoginPage() {
+        return "error";
+    }
+
 }
