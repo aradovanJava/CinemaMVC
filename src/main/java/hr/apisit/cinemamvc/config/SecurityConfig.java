@@ -40,9 +40,9 @@ public class SecurityConfig {
                 )
 
         .formLogin((form) -> form
-                .loginPage("/cinema/login.html")
+                //.loginPage("/cinema/login.html")
                 .defaultSuccessUrl("/film", true)
-                .failureUrl("/login?error")
+                //.failureUrl("/login?error")
         ) .logout((logout) -> logout.permitAll());
         return http.build();
 
