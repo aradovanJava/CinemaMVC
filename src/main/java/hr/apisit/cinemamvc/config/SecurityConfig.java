@@ -32,8 +32,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(mvc(introspector).pattern("/login.html")).hasAnyAuthority("ROLE_ANONYMOUS")
-                        .requestMatchers(mvc(introspector).pattern("/error")).hasAnyAuthority("ROLE_ANONYMOUS")
+                        //.requestMatchers(mvc(introspector).pattern("/login.html")).hasAnyAuthority("ROLE_ANONYMOUS")
+                        //.requestMatchers(mvc(introspector).pattern("/error")).hasAnyAuthority("ROLE_ANONYMOUS")
+                        .requestMatchers(mvc(introspector).pattern("/film/update/**"),
+                                mvc(introspector).pattern("/film/delete/**")).hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers(mvc(introspector).pattern("/home")).hasAnyAuthority("ROLE_ANONYMOUS")
                         .requestMatchers(mvc(introspector).pattern("/film")).hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .anyRequest().authenticated()

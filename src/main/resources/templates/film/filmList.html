@@ -3,10 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista filmova</title>
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
-<ul th:each="film : ${films}">
-    <a th:href="@{/film/details/(id=${film.id})}"><li th:text="${film.name}"/></a>
-</ul>
+<table id="filmTable" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Director</th>
+            <th>Genre</th>
+            <th>Duration</th>
+            <th>Rating</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="film: ${films}">
+            <td th:text="${film.name}" />
+            <td th:text="${film.director}" />
+            <td th:text="${film.genre}" />
+            <td th:text="${film.duration}" />
+            <td th:text="${film.rating}" />
+            <td><a th:href="@{/film/details/(id=${film.id})}" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Detalji</a></td>
+        </tr>
+    </tbody>
+</table>
+<a th:href="${'/logout'}" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Odjava</a>
+<script type="application/javascript">
+    console.log("loading datatable...");
+    new DataTable('#filmTable');
+    console.log("loading finished...");
+</script>
 </body>
 </html>

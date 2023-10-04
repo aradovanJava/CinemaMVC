@@ -7,15 +7,16 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 
 import java.nio.charset.StandardCharsets;
 
-@Configuration
+//@Configuration
 public class ThymeleafConfig {
-    @Bean
+    //@Bean
     public SpringTemplateEngine springTemplateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.addTemplateResolver(htmlTemplateResolver());
         return templateEngine;
     }
-    @Bean
+
+    //@Bean
     public SpringResourceTemplateResolver htmlTemplateResolver() {
         SpringResourceTemplateResolver templateResolver =
                 new SpringResourceTemplateResolver();

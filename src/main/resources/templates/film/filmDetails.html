@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Film details</title>
@@ -32,8 +32,10 @@
             </tr>
         </table>
     </div>
-    <a th:href="${'/film/update/?id=' + film.id}" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Ažuriraj film</a>
-    <a th:href="${'/film/delete/?id=' + film.id}" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Obriši film</a>
+    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+        <a th:href="${'/film/update/?id=' + film.id}" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Ažuriraj film</a>
+        <a th:href="${'/film/delete/?id=' + film.id}" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Obriši film</a>
+    </div>
     <a href="/film" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Povratak na listu filmova</a>
 </body>
 </html>
