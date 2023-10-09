@@ -38,6 +38,7 @@ public class SecurityConfig {
                                 mvc(introspector).pattern("/film/delete/**")).hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers(mvc(introspector).pattern("/home")).hasAnyAuthority("ROLE_ANONYMOUS")
                         .requestMatchers(mvc(introspector).pattern("/film")).hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                        .requestMatchers(mvc(introspector).pattern("/actuator/**")).permitAll()
                         .anyRequest().authenticated()
                 )
 

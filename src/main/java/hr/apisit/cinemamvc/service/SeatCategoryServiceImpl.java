@@ -14,6 +14,7 @@ import java.util.Optional;
 public class SeatCategoryServiceImpl implements SeatCategoryService {
 
     private JpaSeatCategoryRepository seatCategoryRepository;
+
     @Override
     public List<SeatCategory> findAll() {
         return seatCategoryRepository.findAll();
@@ -30,18 +31,18 @@ public class SeatCategoryServiceImpl implements SeatCategoryService {
     }
 
     @Override
-    public SeatCategory update(SeatCategory seatCategoryForUpdate, Integer originalSeatCategoryId) {
+    public SeatCategory update(SeatCategory seatCategoryForUpdate,
+                               Integer originalSeatCategoryId) {
         Optional<SeatCategory> managedSeatCategoryOptional =
                 seatCategoryRepository.findById(originalSeatCategoryId);
 
-        if(managedSeatCategoryOptional.isPresent()) {
+        if (managedSeatCategoryOptional.isPresent()) {
             SeatCategory managedSeatCategory = managedSeatCategoryOptional.get();
             managedSeatCategory.setName(seatCategoryForUpdate.getName());
             managedSeatCategory.setDescription(seatCategoryForUpdate.getDescription());
             SeatCategory savedSeatCategory = seatCategoryRepository.save(managedSeatCategory);
             return savedSeatCategory;
-        }
-        else {
+        } else {
             throw new EntityNotFoundException("There is no Seat object for ID = '" + originalSeatCategoryId + "'");
         }
     }

@@ -7,27 +7,60 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 </head>
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                let index = window.location.href.indexOf('&');
+                //alert('Index = ' + index);
+                let url;
+                if(index > 0) {
+                    url = window.location.href.substring(0, index);
+                    //alert('url = ' + url);
+                    window.location.href = url + '&lang=' + selectedOption;
+                    //alert('window.location.href 2 = ' + window.location.href);
+                }
+                else {
+                    url = window.location.href;
+                }
+                window.location.href = url + '&lang=' + selectedOption;
+                //alert('window.location.href = ' + window.location.href);
+            }
+        });
+    });
+</script>
+<span th:text="#{lang.change}"></span>:
+<select id="locales">
+    <option value=""></option>
+    <option value="en" th:text="#{lang.en}"></option>
+    <option value="hr" th:text="#{lang.hr}"></option>
+    <option value="ar" th:text="#{lang.ar}"></option>
+</select>
+
     <div th:if="${film != null}">
         <h1><span th:text="${film.name}" >FILM.NAME</span></h1>
         <table>
             <tr>
-                <td>Film name:</td>
+                <td th:text="#{film.name} + ': '"></td>
                 <td th:text="${film.name}" />
             </tr>
             <tr>
-                <td>Film director:</td>
+                <td th:text="#{film.director} + ': '"></td>
                 <td th:text="${film.director}" />
             </tr>
             <tr>
-                <td>Film genre:</td>
+                <td th:text="#{film.genre} + ': '"></td>
                 <td th:text="${film.genre}" />
             </tr>
             <tr>
-                <td>Film duration:</td>
+                <td th:text="#{film.duration} + ': '"></td>
                 <td th:text="${film.duration}" />
             </tr>
             <tr>
-                <td>Film rating:</td>
+                <td th:text="#{film.rating} + ': '"></td>
                 <td th:text="${film.rating}" />
             </tr>
         </table>
