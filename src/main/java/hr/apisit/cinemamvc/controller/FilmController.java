@@ -2,8 +2,10 @@ package hr.apisit.cinemamvc.controller;
 
 import hr.apisit.cinemamvc.domain.Film;
 import hr.apisit.cinemamvc.domain.Genre;
+import hr.apisit.cinemamvc.domain.Projection;
 import hr.apisit.cinemamvc.domain.Rating;
 import hr.apisit.cinemamvc.service.FilmService;
+import hr.apisit.cinemamvc.service.ProjectionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import java.util.Optional;
 public class FilmController {
 
     private FilmService filmService;
+    private ProjectionService projectionService;
 
     @GetMapping
     public String getAllFilms(Model model) {
@@ -37,6 +40,13 @@ public class FilmController {
             Film film = filmService.findById(id);
             filmOptional = Optional.of(film);
             model.addAttribute("film", filmOptional.get());
+
+            List<Projection> projectionList = projectionService.findAllByFilm(film);
+            model.addAttribute("projectionList", projectionList);
+            for(Projection projection : projectionList) {
+                log.info("Projection " + projection.getFilm().getName() + " - available seats: "
+                        + projection.getStage().getSeatList().size());
+            }
         }
         catch(RuntimeException ex) {
             log.error("Error while getting the film by ID!", ex);

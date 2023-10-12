@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div th:fragment="header">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != '') {
+                    let index = window.location.href.indexOf('&');
+                    //alert('Index = ' + index);
+                    let url;
+                    if (index > 0) {
+                        url = window.location.href.substring(0, index);
+                        //alert('url = ' + url);
+                        window.location.href = url + '&lang=' + selectedOption;
+                        //alert('window.location.href 2 = ' + window.location.href);
+                    } else {
+                        url = window.location.href;
+                    }
+                    window.location.href = url + '&lang=' + selectedOption;
+                    //alert('window.location.href = ' + window.location.href);
+                }
+            });
+        });
+    </script>
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.en}"></option>
+        <option value="hr" th:text="#{lang.hr}"></option>
+        <option value="ar" th:text="#{lang.ar}"></option>
+    </select>
+</div>
+</body>
+</html>
