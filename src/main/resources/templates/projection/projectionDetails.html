@@ -8,14 +8,28 @@
 </head>
 <body>
 <div th:replace="/fragments/header :: header"> </div>
+<div th:text="${projection.film.name}" />
 <div class="d-flex flex-row flex-wrap w-100">
     <div class="border border-primary rounded m-2">
             <div th:text="${#temporals.format(projection.dateAndTime, 'dd.MM.yyyy. HH:mm')}"></div>
             <div th:text="${projection.stage.name}" />
-            <div class="border border-primary rounded m-2" th:each="seat: ${projection.stage.seatList}">
-                <div th:text="${seat.rowName + ' ' + seat.positionInRow}"/>
-            </div>
     </div>
+</div>
+
+<div>
+    <form th:action="@{'/projection/' + ${projection.id} + '/tickets'}" th:object="${projectionTicketsForm}" method="post">
+        <select th:field="*{chosenSeats}" multiple="multiple">
+            <option th:each="seat : ${projection.stage.seatList}"
+                    th:value="${seat.id}"
+                    th:text="${seat.rowName + ' ' + seat.positionInRow + ' ' + seat.seatCategory}">
+            </option>
+        </select>
+        <input type="submit" value="Spremi" />
+    </form>
+</div>
+<div th:if="${totalPrice} != null">
+    <label for="price">Total price: </label>
+    <div id="price" th:text="${totalPrice.setScale(2, T(java.math.BigDecimal).ROUND_HALF_UP)}"></div>
 </div>
 </body>
 </html>
